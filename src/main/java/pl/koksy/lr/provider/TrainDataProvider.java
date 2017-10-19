@@ -19,6 +19,9 @@ public class TrainDataProvider {
     }
 
     public ArrayList<Letter> provide() {
+        ArrayList<Letter> trainData = new ArrayList<>();
+
+
         return null;
     }
 }

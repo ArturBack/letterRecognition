@@ -1,5 +1,9 @@
 package pl.koksy.lr.writer;
 
+import pl.koksy.lr.util.Constants;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +21,12 @@ public class WeigthsWriter {
     }
 
     public void write(ArrayList<Double> weights) {
-
+        try {
+            FileOutputStream fout = new FileOutputStream(Constants.WEIGHTS_FILE_NAME);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(weights);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
