@@ -24,6 +24,7 @@ public class FxApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "5");
 		primaryStage.setTitle(APP_TITLE);
 		primaryStage.setResizable(STAGE_IS_RESIZABLE);
 
