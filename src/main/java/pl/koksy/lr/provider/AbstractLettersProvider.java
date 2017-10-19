@@ -27,7 +27,8 @@ public  abstract class AbstractLettersProvider  {
         ArrayList<Letter> letters = new ArrayList<>();
 
         try (Stream<Path> paths = Files.walk(Paths.get(directoryPath))) {
-            paths.filter(Files::isDirectory)
+            paths.skip(1)
+                    .filter(Files::isDirectory)
                     .forEach(path -> letters.addAll(getAllLetterForms(path)));
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +40,10 @@ public  abstract class AbstractLettersProvider  {
     private ArrayList<Letter> getAllLetterForms(Path letterDirectory) {
         ArrayList<Letter> letters = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(letterDirectory)) {
-            paths.map(this::createLetter).forEach(letters::add);
+            paths.skip(1)
+                    .filter(path -> !path.equals(letterDirectory))
+                    .map(this::createLetter)
+                    .forEach(letters::add);
         } catch (IOException e) {
             e.printStackTrace();
         }
