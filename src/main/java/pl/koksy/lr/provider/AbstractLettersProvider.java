@@ -55,7 +55,8 @@ public  abstract class AbstractLettersProvider  {
             File imageFile = path.toFile();
             BufferedImage image = ImageIO.read(imageFile);
             System.out.println(imageFile.getName());
-            return new Letter(path.getParent().toFile().getName(), image);
+            ArrayList<Double> letterFeatures = null;
+            return new Letter(path.getParent().toFile().getName(), letterFeatures);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -23,7 +23,7 @@ public class LetterNeuralNetworkManager {
     }
 
     public String getLabelForLetter(BufferedImage image) {
-        return network.getLabel(new Letter(image), weigthsProvider.provide());
+        return network.getLabel(new Letter(null), weigthsProvider.provide());
     }
 
     public void trainNetwork() {

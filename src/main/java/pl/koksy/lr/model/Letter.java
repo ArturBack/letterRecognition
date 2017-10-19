@@ -11,15 +11,14 @@ public class Letter {
 
     private ArrayList<Double> features;
     private String label;
-    private BufferedImage image;
 
-    public Letter(BufferedImage image) {
-        this.image = image;
+    public Letter(ArrayList<Double> features) {
+        this.features = features;
     }
 
-    public Letter(String label, BufferedImage image) {
+    public Letter(String label, ArrayList<Double> features) {
         this.label = label;
-        this.image = image;
+        this.features = features;
     }
 
     public void setFeatures(ArrayList<Double> features) {
@@ -32,9 +31,5 @@ public class Letter {
 
     public String getLabel() {
         return label;
-    }
-
-    public BufferedImage getImage() {
-        return image;
     }
 }
