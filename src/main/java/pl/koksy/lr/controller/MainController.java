@@ -25,6 +25,8 @@ public class MainController {
 	@FXML
 	private void initialize() {
 		this.letterNeuralNetworkManager = new LetterNeuralNetworkManager();
+
+		new Thread(() -> letterNeuralNetworkManager.trainNetwork()).start();
 		System.out.println("Lubie placki");
 
 		checkButton.setOnMouseClicked(event -> {

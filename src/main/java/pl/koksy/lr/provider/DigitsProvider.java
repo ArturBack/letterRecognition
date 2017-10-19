@@ -17,6 +17,4 @@ public class DigitsProvider extends AbstractLettersProvider {
         }
         return instance;
     }
-
-
 }
