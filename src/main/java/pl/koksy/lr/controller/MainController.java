@@ -3,7 +3,10 @@ package pl.koksy.lr.controller;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.paint.Color;
 import pl.koksy.lr.neuralnetwork.LetterNeuralNetworkManager;
 
 /**
@@ -15,6 +18,15 @@ public class MainController {
 	private Canvas letterCanvas;
 
 	@FXML
+	private ColorPicker brushColorPicker;
+
+	@FXML
+	private Slider brushSizeSlider;
+
+	@FXML
+	private Button clearButton;
+
+	@FXML
 	private Button checkButton;
 
 	@FXML
@@ -22,15 +34,32 @@ public class MainController {
 
 	private LetterNeuralNetworkManager letterNeuralNetworkManager;
 
+	private DrawingBoard drawingBoard;
+
 	@FXML
 	private void initialize() {
 		this.letterNeuralNetworkManager = new LetterNeuralNetworkManager();
-		System.out.println("Lubie placki");
+		this.drawingBoard = new DrawingBoard(letterCanvas, brushSizeSlider.getValue(), brushColorPicker.getValue());
+		handleBrushColorPickerChange();
+		handleBrushSizeSliderChange();
+		handleClearButton();
+	}
 
-		checkButton.setOnMouseClicked(event -> {
-			System.out.println("Lubie mięso");
+	private void handleBrushColorPickerChange() {
+		brushColorPicker.setOnAction(event -> {
+			drawingBoard.setBrushColor(brushColorPicker.getValue());
+		});
+	}
 
+	private void handleBrushSizeSliderChange() {
+		brushSizeSlider.valueProperty().addListener((ov, oldValue, newValue) -> {
+			drawingBoard.setBrushSize(newValue.doubleValue());
+		});
+	}
 
+	private void handleClearButton() {
+		clearButton.setOnMouseClicked(event -> {
+			drawingBoard.clearBoard();
 		});
 	}
 }
