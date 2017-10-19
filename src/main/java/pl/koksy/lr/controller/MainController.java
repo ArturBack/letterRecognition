@@ -13,6 +13,7 @@ import pl.koksy.lr.neuralnetwork.LetterNeuralNetworkManager;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by DKUNERT on 2017-10-14.
@@ -50,7 +51,7 @@ public class MainController {
 		handleBrushSizeSliderChange();
 		handleClearButton();
 
-        new Thread(() -> letterNeuralNetworkManager.trainNetwork()).start();
+        // new Thread(() -> letterNeuralNetworkManager.trainNetwork()).start();
 
     }
 
@@ -61,6 +62,7 @@ public class MainController {
 
 			try {
 				ImageIO.write(SwingFXUtils.fromFXImage(currentImage, null), "png", new File("testFile.png"));
+				resultLabel.setText("" + new Random().nextInt(10));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
