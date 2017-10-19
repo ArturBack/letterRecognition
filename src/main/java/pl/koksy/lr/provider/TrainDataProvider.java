@@ -11,6 +11,16 @@ public class TrainDataProvider {
 
     private static TrainDataProvider instance;
 
+    private BigLettersProvider bigLettersProvider;
+    private SmallLettersProvider smallLettersProvider;
+    private DigitsProvider digitsProvider;
+
+    private TrainDataProvider() {
+        this.bigLettersProvider = BigLettersProvider.getInstance();
+        this.smallLettersProvider = SmallLettersProvider.getInstance();
+        this.digitsProvider = DigitsProvider.getInstance();
+    }
+
     public static TrainDataProvider getInstance() {
         if(instance == null) {
             instance = new TrainDataProvider();
@@ -18,10 +28,13 @@ public class TrainDataProvider {
         return instance;
     }
 
-    public ArrayList<Letter> provide() {
+    public ArrayList<Letter> provideTrainData() {
         ArrayList<Letter> trainData = new ArrayList<>();
 
+        trainData.addAll(bigLettersProvider.provide());
+        trainData.addAll(smallLettersProvider.provide());
+        trainData.addAll(digitsProvider.provide());
 
-        return null;
+        return trainData;
     }
 }
