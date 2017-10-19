@@ -41,7 +41,6 @@ public  abstract class AbstractLettersProvider  {
         ArrayList<Letter> letters = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(letterDirectory)) {
             paths.skip(1)
-                    .filter(path -> !path.equals(letterDirectory))
                     .map(this::createLetter)
                     .forEach(letters::add);
         } catch (IOException e) {
@@ -55,8 +54,12 @@ public  abstract class AbstractLettersProvider  {
             File imageFile = path.toFile();
             BufferedImage image = ImageIO.read(imageFile);
             System.out.println(imageFile.getName());
+
+            //TODO extract features from image here
             ArrayList<Double> letterFeatures = null;
+
             return new Letter(path.getParent().toFile().getName(), letterFeatures);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
