@@ -2,6 +2,7 @@ package pl.koksy.lr.controller;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 public class DrawingBoard {
@@ -22,6 +23,24 @@ public class DrawingBoard {
         enableDrawing();
     }
 
+    public void clearBoard() {
+        GraphicsContext graphicContext = canvas.getGraphicsContext2D();
+        graphicContext.setFill(BACKGROUND_COLOR);
+        graphicContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    public WritableImage getCurrentImage() {
+        return canvas.snapshot(null, null);
+    }
+
+    public void setBrushSize(double brushSize) {
+        this.brushSize = brushSize;
+    }
+
+    public void setBrushColor(Color brushColor) {
+        this.brushColor = brushColor;
+    }
+
     private void enableDrawing() {
         canvas.setOnMouseDragged(event -> {
             drawPoint(event.getX(), event.getY(), brushSize, brushColor);
@@ -32,19 +51,5 @@ public class DrawingBoard {
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
         graphicsContext.setFill(color);
         graphicsContext.fillRect(x - size/2, y - size / 2, size, size);
-    }
-
-    public void clearBoard() {
-        GraphicsContext graphicContext = canvas.getGraphicsContext2D();
-        graphicContext.setFill(BACKGROUND_COLOR);
-        graphicContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    }
-
-    public void setBrushSize(double brushSize) {
-        this.brushSize = brushSize;
-    }
-
-    public void setBrushColor(Color brushColor) {
-        this.brushColor = brushColor;
     }
 }

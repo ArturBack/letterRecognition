@@ -1,13 +1,18 @@
 package pl.koksy.lr.controller;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
+import javafx.scene.image.WritableImage;
 import pl.koksy.lr.neuralnetwork.LetterNeuralNetworkManager;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by DKUNERT on 2017-10-14.
@@ -40,9 +45,22 @@ public class MainController {
 	private void initialize() {
 		this.letterNeuralNetworkManager = new LetterNeuralNetworkManager();
 		this.drawingBoard = new DrawingBoard(letterCanvas, brushSizeSlider.getValue(), brushColorPicker.getValue());
+		handleCheckButton();
 		handleBrushColorPickerChange();
 		handleBrushSizeSliderChange();
 		handleClearButton();
+	}
+
+	private void handleCheckButton() {
+		checkButton.setOnMouseClicked(event -> {
+			WritableImage currentImage = drawingBoard.getCurrentImage();
+
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(currentImage, null), "png", new File("testFile.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	private void handleBrushColorPickerChange() {
