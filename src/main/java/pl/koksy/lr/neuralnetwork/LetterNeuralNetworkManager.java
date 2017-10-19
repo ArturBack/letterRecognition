@@ -5,6 +5,7 @@ import pl.koksy.lr.provider.TrainDataProvider;
 import pl.koksy.lr.provider.WeigthsProvider;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Created by Artur on 2017-10-15.
@@ -23,5 +24,10 @@ public class LetterNeuralNetworkManager {
 
     public String getLabelForLetter(BufferedImage image) {
         return network.getLabel(new Letter(image), weigthsProvider.provide());
+    }
+
+    public void trainNetwork() {
+        ArrayList<Letter> trainData = trainDataProvider.provideTrainData();
+
     }
 }

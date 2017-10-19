@@ -21,10 +21,4 @@ public class BigLettersProvider extends AbstractLettersProvider {
         }
         return instance;
     }
-
-    @Override
-    public ArrayList<Letter> provide() {
-        
-        return null;
-    }
 }

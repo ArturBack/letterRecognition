@@ -17,5 +17,4 @@ public class SmallLettersProvider extends AbstractLettersProvider {
         }
         return instance;
     }
-
 }

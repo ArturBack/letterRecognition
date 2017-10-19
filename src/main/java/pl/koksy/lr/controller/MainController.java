@@ -49,7 +49,11 @@ public class MainController {
 		handleBrushColorPickerChange();
 		handleBrushSizeSliderChange();
 		handleClearButton();
-	}
+
+        new Thread(() -> letterNeuralNetworkManager.trainNetwork()).start();
+
+    }
+
 
 	private void handleCheckButton() {
 		checkButton.setOnMouseClicked(event -> {
