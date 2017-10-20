@@ -51,7 +51,7 @@ public class MainController {
 		handleBrushSizeSliderChange();
 		handleClearButton();
 
-        new Thread(() -> letterNeuralNetworkManager.trainNetwork()).start();
+        //new Thread(() -> letterNeuralNetworkManager.trainNetwork()).start();
 
     }
 

@@ -39,18 +39,17 @@ public  abstract class AbstractLettersProvider  {
 
     private Letter createLetter(Path path) {
         try {
-            File imageFile = path.toFile();
-            BufferedImage image = ImageIO.read(imageFile);
-            System.out.println(imageFile.getName());
-
-            //TODO extract features from image here
-            ArrayList<Double> letterFeatures = null;
-
-            return new Letter(path.getParent().toFile().getName(), letterFeatures);
+            BufferedImage image = ImageIO.read(path.toFile());
+            ArrayList<Double> letterFeatures = FeaturesExtractor.extraxtFeaturesFrom(image);
+            return new Letter(getLetterLabel(path), letterFeatures);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private String getLetterLabel(Path letterPath) {
+        return letterPath.getParent().toFile().getName();
     }
 }
