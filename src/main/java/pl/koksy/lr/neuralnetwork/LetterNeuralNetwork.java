@@ -19,7 +19,6 @@ public class LetterNeuralNetwork {
 
     public static MultiLayerNetwork build() {
 
-        System.out.println("BUILD MODEL");
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
                 .seed(SEED) //include a random seed for reproducibility
                 // use stochastic gradient descent as an optimization algorithm

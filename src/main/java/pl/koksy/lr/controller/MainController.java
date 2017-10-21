@@ -60,9 +60,9 @@ public class MainController {
 
         DataSetIterator trainDataIterator = TrainDataReader.getTrainDataIterator();
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             neuralNetwork.fit(TrainDataReader.getTrainDataIterator());
-            System.out.println("EVALUATE: " + neuralNetwork.evaluate(TrainDataReader.getTrainDataIterator()));
+            System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
         }
 
     }
@@ -78,7 +78,7 @@ public class MainController {
                 INDArray inputImage = loader.asRowVector(image);
                 INDArray prediction = neuralNetwork.output(inputImage);
 
-                System.out.println(prediction.toString());
+                System.out.println("PREDICTIONS: " + prediction.toString());
 
                 resultLabel.setText("" + neuralNetwork.predict(inputImage)[0]);
             } catch (IOException e) {

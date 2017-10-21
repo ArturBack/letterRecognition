@@ -6,8 +6,6 @@ import org.datavec.api.split.FileSplit;
 import org.datavec.api.split.InputSplit;
 import org.datavec.image.loader.BaseImageLoader;
 import org.datavec.image.recordreader.ImageRecordReader;
-import org.datavec.image.transform.ImageTransform;
-import org.datavec.image.transform.MultiImageTransform;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
@@ -24,10 +22,9 @@ public class TrainDataReader {
     public static DataSetIterator getTrainDataIterator() {
 
         // Temporary set to big letter to test if this works - parent should be at "LETTERS"
-        File parentDir = new File(StoragePathsProvider.getBigLettersDirectoryPath());
+        File parentDir = new File(StoragePathsProvider.getDigitsDirectoryPath());
 
-        String[] allowFormat = {".png"};
-        FileSplit filesInDir = new FileSplit(parentDir, allowFormat);
+        FileSplit filesInDir = new FileSplit(parentDir, BaseImageLoader.ALLOWED_FORMATS);
         ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
 
         Random randomNum = new Random();
@@ -40,17 +37,16 @@ public class TrainDataReader {
         ImageRecordReader recordReader = new ImageRecordReader(IMAGE_HEIGHT, IMAGE_WIDTH, NUMBER_OF_CHANNELS, labelMaker);
         // ImageTransform transform = new MultiImageTransform(randomNum, new CropImageTransform(80), new ShowImageTransform("After transformation"));
         //ImageTransform transform = new MultiImageTransform(randomNum, new CropImageTransform(80));
-        ImageTransform transform = new MultiImageTransform();
+        //ImageTransform transform = new MultiImageTransform();
         //ImageTransform transform = new MultiImageTransform(randomNum, new ShowImageTransform("After transformation"));
 
         try {
-            recordReader.initialize(trainData, transform);
+            recordReader.initialize(trainData, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int numPossibleLabelsForBigLetters = 26;
 
-        DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(recordReader, 55, 1, numPossibleLabelsForBigLetters);
+        DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(recordReader, NUMBER_OF_IMAGES_IN_LABEL_DIRECTORY, 1, NUMBER_OF_LABELS);
 
         return dataSetIterator;
     }
