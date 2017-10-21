@@ -5,18 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.koksy.lr.config.ViewConfig;
 
 /**
  * Created by DKUNERT on 2017-10-14.
  */
 public class FxApplication extends Application {
-
-	private static final String APP_TITLE = "Letter recognition";
-	private static final String MAIN_VIEW_PATH = "/view/mainView.fxml";
-
-	private static final double MAIN_SCENE_WIDTH = 500;
-	private static final double MAIN_SCENE_HEIGHT = 600;
-	private static final boolean STAGE_IS_RESIZABLE = false;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -24,13 +18,18 @@ public class FxApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "5");
-		primaryStage.setTitle(APP_TITLE);
-		primaryStage.setResizable(STAGE_IS_RESIZABLE);
+		prepareStage(primaryStage);
+		loadAndShowScene(primaryStage);
+	}
 
-		Parent root = FXMLLoader.load(getClass().getResource(MAIN_VIEW_PATH));
+	private void prepareStage(Stage primaryStage) {
+		primaryStage.setTitle(ViewConfig.APP_TITLE);
+		primaryStage.setResizable(ViewConfig.STAGE_IS_RESIZABLE);
+	}
 
-		Scene scene = new Scene(root, MAIN_SCENE_WIDTH, MAIN_SCENE_HEIGHT);
+	private void loadAndShowScene(Stage primaryStage) throws java.io.IOException {
+		Parent root = FXMLLoader.load(getClass().getResource(ViewConfig.MAIN_VIEW_PATH));
+		Scene scene = new Scene(root, ViewConfig.MAIN_SCENE_WIDTH, ViewConfig.MAIN_SCENE_HEIGHT);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

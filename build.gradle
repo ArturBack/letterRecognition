@@ -10,5 +10,16 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.datavec', name: 'datavec-api', version: '0.9.1'
+    compile group: 'org.datavec', name: 'datavec-data-image', version: '0.9.1'
+
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: '0.9.1'
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-nn', version: '0.9.1'
+
+    compile 'org.nd4j:nd4j-native-platform:0.9.1'
+    compile 'org.nd4j:nd4j-native:0.9.1'
+
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
