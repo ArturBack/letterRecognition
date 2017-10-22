@@ -59,8 +59,9 @@ public class MainController {
         neuralNetwork.fit(TrainDataReader.getTrainDataIterator());
 
         DataSetIterator trainDataIterator = TrainDataReader.getTrainDataIterator();
+        System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 0; i++) {
             neuralNetwork.fit(TrainDataReader.getTrainDataIterator());
             System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
         }

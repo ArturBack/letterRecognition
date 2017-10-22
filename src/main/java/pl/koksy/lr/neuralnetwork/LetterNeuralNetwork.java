@@ -26,16 +26,18 @@ public class LetterNeuralNetwork {
                 .iterations(ITERATIONS)
                 .learningRate(LEARNING_RATE) //specify the learning rate
                 .updater(Updater.NESTEROVS)
-                .regularization(true).l2(L2_REGULARIZATION)
+                .l1(L1_REGULARIZATION)
+                .regularization(true)
+                .l2(L2_REGULARIZATION)
                 .list()
                 .layer(0, new DenseLayer.Builder() //create the first, input layer with xavier initialization
                         .nIn(IMAGE_WIDTH * IMAGE_HEIGHT)
-                        .nOut(1000)
+                        .nOut(500)
                         .activation(Activation.RELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD) //create hidden layer
-                        .nIn(1000)
+                        .nIn(500)
                         .nOut(NUMBER_OF_LABELS)
                         .activation(Activation.SOFTMAX)
                         .weightInit(WeightInit.XAVIER)
