@@ -8,15 +8,20 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.WritableImage;
+import org.apache.commons.io.FileUtils;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import pl.koksy.lr.config.NeuralNetworkConfig;
 import pl.koksy.lr.neuralnetwork.LetterNeuralNetwork;
 import pl.koksy.lr.reader.TrainDataReader;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static pl.koksy.lr.config.NeuralNetworkConfig.*;
 
@@ -48,7 +53,7 @@ public class MainController {
     private MultiLayerNetwork neuralNetwork;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         this.drawingBoard = new DrawingBoard(letterCanvas, brushSizeSlider.getValue(), brushColorPicker.getValue());
         handleCheckButton();
         handleBrushColorPickerChange();
@@ -70,10 +75,7 @@ public class MainController {
         DataSetIterator trainDataIterator = TrainDataReader.getTrainDataIterator();
         System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
 
-        for (int i = 0; i < 0; i++) {
-            neuralNetwork.fit(TrainDataReader.getTrainDataIterator());
-            System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
-        }
+        FileUtils.write(new File("conf.yaml"),neuralNetwork.conf().toYaml());
 
     }
 
@@ -90,7 +92,10 @@ public class MainController {
 
                 System.out.println("PREDICTIONS: " + prediction.toString());
 
-                String result = "" + neuralNetwork.predict(inputImage)[0]; // TODO: change to get label
+                String result  = Files.list(Paths.get(NeuralNetworkConfig.TRAINING_DATA_DIRECTORY)).sorted().skip(neuralNetwork.predict(inputImage)[0]).findFirst().get().getFileName().toString();
+                if (result.contains("_small")) {
+                    result = result.replace("_small", "");
+                }
                 resultLabel.setText(result);
 
             } catch (IOException e) {
