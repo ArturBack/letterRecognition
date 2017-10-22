@@ -55,8 +55,17 @@ public class MainController {
         handleBrushSizeSliderChange();
         handleClearButton();
 
+        DataSetIterator trainData =  TrainDataReader.getTrainDataIterator();
         neuralNetwork = LetterNeuralNetwork.build();
-        neuralNetwork.fit(TrainDataReader.getTrainDataIterator());
+
+        for ( int n = 0; n < 10; n++)
+        {
+            while(trainData.hasNext())
+            {
+                neuralNetwork.fit(trainData.next());
+            }
+            trainData.reset();
+        }
 
         DataSetIterator trainDataIterator = TrainDataReader.getTrainDataIterator();
         System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
