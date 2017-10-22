@@ -81,7 +81,9 @@ public class MainController {
 
                 System.out.println("PREDICTIONS: " + prediction.toString());
 
-                resultLabel.setText("" + neuralNetwork.predict(inputImage)[0]);
+                String result = "" + neuralNetwork.predict(inputImage)[0]; // TODO: change to get label
+                resultLabel.setText(result);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

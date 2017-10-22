@@ -10,7 +10,7 @@
    <children>
       <StackPane prefHeight="500.0" prefWidth="500.0">
          <children>
-            <Canvas fx:id="letterCanvas" height="500.0" width="500.0" />
+            <Canvas fx:id="letterCanvas" height="375.0" width="500.0" />
          </children>
       </StackPane>
       <HBox prefHeight="100.0" prefWidth="500.0">

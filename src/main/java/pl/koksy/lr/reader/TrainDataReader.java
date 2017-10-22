@@ -22,7 +22,7 @@ public class TrainDataReader {
     public static DataSetIterator getTrainDataIterator() {
 
         // Temporary set to big letter to test if this works - parent should be at "LETTERS"
-        File parentDir = new File(StoragePathsProvider.getDigitsDirectoryPath());
+        File parentDir = new File(TRAINING_DATA_DIRECTORY);
 
         FileSplit filesInDir = new FileSplit(parentDir, BaseImageLoader.ALLOWED_FORMATS);
         ParentPathLabelGenerator labelMaker = new ParentPathLabelGenerator();
