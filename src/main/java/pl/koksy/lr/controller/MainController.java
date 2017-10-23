@@ -83,8 +83,6 @@ public class MainController {
         System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
 
         NetworkIO.saveNetwork(neuralNetwork);
-        FileUtils.write(new File("conf.yaml"),neuralNetwork.conf().toYaml());
-
     }
 
     private void handleCheckButton() {
