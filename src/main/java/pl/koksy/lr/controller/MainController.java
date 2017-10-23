@@ -66,13 +66,13 @@ public class MainController {
 
     private void createNeuralNetworkModel() {
         neuralNetwork = NetworkIO.loadNetwork();
-        if(neuralNetwork == null) {
+        if (neuralNetwork == null) {
             neuralNetwork = LetterNeuralNetwork.build();
         }
 
-        DataSetIterator trainData =  TrainDataReader.getTrainDataIterator();
+        DataSetIterator trainData = TrainDataReader.getTrainDataIterator();
 
-        for(int i =0; i< 5; i++) {
+        for (int i = 0; i < EPOCS_NUMBER; i++) {
             while (trainData.hasNext()) {
                 neuralNetwork.fit(trainData.next());
             }
