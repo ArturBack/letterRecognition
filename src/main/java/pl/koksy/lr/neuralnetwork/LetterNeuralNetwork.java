@@ -32,12 +32,12 @@ public class LetterNeuralNetwork {
                 .list()
                 .layer(0, new DenseLayer.Builder() //create the first, input layer with xavier initialization
                         .nIn(IMAGE_WIDTH * IMAGE_HEIGHT)
-                        .nOut(500)
+                        .nOut(100)
                         .activation(Activation.RELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD) //create hidden layer
-                        .nIn(500)
+                        .nIn(100)
                         .nOut(NUMBER_OF_LABELS)
                         .activation(Activation.SOFTMAX)
                         .weightInit(WeightInit.XAVIER)

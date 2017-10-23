@@ -15,6 +15,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import pl.koksy.lr.config.NeuralNetworkConfig;
 import pl.koksy.lr.neuralnetwork.LetterNeuralNetwork;
+import pl.koksy.lr.neuralnetwork.NetworkIO;
 import pl.koksy.lr.reader.TrainDataReader;
 
 import java.awt.image.BufferedImage;
@@ -60,13 +61,19 @@ public class MainController {
         handleBrushSizeSliderChange();
         handleClearButton();
 
-        DataSetIterator trainData =  TrainDataReader.getTrainDataIterator();
-        neuralNetwork = LetterNeuralNetwork.build();
+        createNeuralNetworkModel();
+    }
 
-        for ( int n = 0; n < 10; n++)
-        {
-            while(trainData.hasNext())
-            {
+    private void createNeuralNetworkModel() {
+        neuralNetwork = NetworkIO.loadNetwork();
+        if(neuralNetwork == null) {
+            neuralNetwork = LetterNeuralNetwork.build();
+        }
+
+        DataSetIterator trainData =  TrainDataReader.getTrainDataIterator();
+
+        for(int i =0; i< 5; i++) {
+            while (trainData.hasNext()) {
                 neuralNetwork.fit(trainData.next());
             }
             trainData.reset();
@@ -75,10 +82,10 @@ public class MainController {
         DataSetIterator trainDataIterator = TrainDataReader.getTrainDataIterator();
         System.out.println("EVALUATE: " + neuralNetwork.evaluate(trainDataIterator));
 
+        NetworkIO.saveNetwork(neuralNetwork);
         FileUtils.write(new File("conf.yaml"),neuralNetwork.conf().toYaml());
 
     }
-
 
     private void handleCheckButton() {
         checkButton.setOnMouseClicked(event -> {

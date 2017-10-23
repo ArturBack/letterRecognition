@@ -20,5 +20,8 @@ public abstract class NeuralNetworkConfig {
 
     public static String TRAINING_DATA_DIRECTORY = "Letters_50";
 
+    public static String NETWORK_PATH = "network.zip";
+
+
     private NeuralNetworkConfig() {};
 }
