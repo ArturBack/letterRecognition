@@ -9,7 +9,6 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
-import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
@@ -32,12 +31,12 @@ public class LetterNeuralNetwork {
                 .list()
                 .layer(0, new DenseLayer.Builder() //create the first, input layer with xavier initialization
                         .nIn(IMAGE_WIDTH * IMAGE_HEIGHT)
-                        .nOut(100)
+                        .nOut(500)
                         .activation(Activation.RELU)
                         .weightInit(WeightInit.XAVIER)
                         .build())
                 .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD) //create hidden layer
-                        .nIn(100)
+                        .nIn(500)
                         .nOut(NUMBER_OF_LABELS)
                         .activation(Activation.SOFTMAX)
                         .weightInit(WeightInit.XAVIER)
@@ -49,7 +48,7 @@ public class LetterNeuralNetwork {
         MultiLayerNetwork multiLayerNetwork = new MultiLayerNetwork(conf);
         multiLayerNetwork.init();
 
-        multiLayerNetwork.setListeners(new ScoreIterationListener(1));
+        //multiLayerNetwork.setListeners(new ScoreIterationListener(1));
         return multiLayerNetwork;
     }
 }

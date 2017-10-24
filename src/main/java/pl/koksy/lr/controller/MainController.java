@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.WritableImage;
-import org.apache.commons.io.FileUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -18,6 +18,7 @@ import pl.koksy.lr.neuralnetwork.LetterNeuralNetwork;
 import pl.koksy.lr.neuralnetwork.NetworkIO;
 import pl.koksy.lr.reader.TrainDataReader;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -87,9 +88,11 @@ public class MainController {
 
     private void handleCheckButton() {
         checkButton.setOnMouseClicked(event -> {
-            WritableImage currentImage = drawingBoard.getCurrentImage();
+            Image currentImage = drawingBoard.getCurrentImage();
+            currentImage = scale(currentImage, IMAGE_WIDTH, IMAGE_HEIGHT, true);
 
             try {
+                ImageIO.write(SwingFXUtils.fromFXImage(currentImage, null), "png", new File("testFile.png"));
                 BufferedImage image = SwingFXUtils.fromFXImage(currentImage, null);
                 NativeImageLoader loader = new NativeImageLoader(IMAGE_HEIGHT, IMAGE_WIDTH, NUMBER_OF_CHANNELS);
                 INDArray inputImage = loader.asRowVector(image);
@@ -107,6 +110,14 @@ public class MainController {
                 e.printStackTrace();
             }
         });
+    }
+
+    public Image scale(Image source, int targetWidth, int targetHeight, boolean preserveRatio) {
+        ImageView imageView = new ImageView(source);
+        imageView.setPreserveRatio(preserveRatio);
+        imageView.setFitWidth(targetWidth);
+        imageView.setFitHeight(targetHeight);
+        return imageView.snapshot(null, null);
     }
 
     private void handleBrushColorPickerChange() {
