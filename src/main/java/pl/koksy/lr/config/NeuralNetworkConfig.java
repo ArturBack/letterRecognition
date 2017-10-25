@@ -7,7 +7,7 @@ public abstract class NeuralNetworkConfig {
 
     public static final int NUMBER_OF_CHANNELS = 1;
     public static final int NUMBER_OF_LABELS = 62;
-    public static final int ITERATIONS = 40;
+    public static final int ITERATIONS = 10;
 
     public static final double LEARNING_RATE = 1e-6;
     public static final double L2_REGULARIZATION = 1e-4;
