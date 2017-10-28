@@ -28,7 +28,7 @@
                                     <Color blue="0.0" green="0.0" red="0.0" />
                                  </value>
                               </ColorPicker>
-                              <Slider fx:id="brushSizeSlider" blockIncrement="4.0" max="60.0" min="1.0" prefHeight="25.0" prefWidth="200.0" value="22.0" />
+                              <Slider fx:id="brushSizeSlider" blockIncrement="4.0" max="80.0" min="1.0" prefHeight="25.0" prefWidth="200.0" value="38.0" />
                            </children>
                         </VBox>
                      </children>
