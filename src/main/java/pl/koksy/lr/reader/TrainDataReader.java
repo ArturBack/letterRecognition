@@ -21,7 +21,6 @@ public class TrainDataReader {
 
     public static DataSetIterator getTrainDataIterator() {
 
-        // Temporary set to big letter to test if this works - parent should be at "LETTERS"
         File parentDir = new File(TRAINING_DATA_DIRECTORY);
 
         FileSplit filesInDir = new FileSplit(parentDir, BaseImageLoader.ALLOWED_FORMATS);
@@ -35,10 +34,6 @@ public class TrainDataReader {
 
 
         ImageRecordReader recordReader = new ImageRecordReader(IMAGE_HEIGHT, IMAGE_WIDTH, NUMBER_OF_CHANNELS, labelMaker);
-        // ImageTransform transform = new MultiImageTransform(randomNum, new CropImageTransform(80), new ShowImageTransform("After transformation"));
-        //ImageTransform transform = new MultiImageTransform(randomNum, new CropImageTransform(80));
-        //ImageTransform transform = new MultiImageTransform();
-        //ImageTransform transform = new MultiImageTransform(randomNum, new ShowImageTransform("After transformation"));
 
         try {
             recordReader.initialize(trainData, null);

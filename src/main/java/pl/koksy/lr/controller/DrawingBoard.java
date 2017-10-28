@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 
 public class DrawingBoard {
 
-    private static Color BACKGROUND_COLOR = Color.WHITE;
+    public static Color BACKGROUND_COLOR = Color.WHITE;
 
     private Canvas canvas;
 

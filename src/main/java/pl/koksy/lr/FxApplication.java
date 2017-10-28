@@ -6,13 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.koksy.lr.config.ViewConfig;
+import pl.koksy.lr.util.ImageTransformer;
+
+import java.io.IOException;
 
 /**
  * Created by DKUNERT on 2017-10-14.
  */
 public class FxApplication extends Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		ImageTransformer imageTransformer = new ImageTransformer();
+
 		launch(args);
 	}
 

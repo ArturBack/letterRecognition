@@ -17,6 +17,7 @@ import pl.koksy.lr.config.NeuralNetworkConfig;
 import pl.koksy.lr.neuralnetwork.LetterNeuralNetwork;
 import pl.koksy.lr.neuralnetwork.NetworkIO;
 import pl.koksy.lr.reader.TrainDataReader;
+import pl.koksy.lr.util.ImageTransformer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -87,9 +88,12 @@ public class MainController {
     }
 
     private void handleCheckButton() {
+        ImageTransformer imageTransformer = new ImageTransformer();
+
         checkButton.setOnMouseClicked(event -> {
             Image currentImage = drawingBoard.getCurrentImage();
-            currentImage = scale(currentImage, IMAGE_WIDTH, IMAGE_HEIGHT, true);
+            currentImage = imageTransformer.transformImage(currentImage);
+            currentImage = scale(currentImage, IMAGE_HEIGHT, IMAGE_WIDTH, true);
 
             try {
                 ImageIO.write(SwingFXUtils.fromFXImage(currentImage, null), "png", new File("testFile.png"));
@@ -101,9 +105,6 @@ public class MainController {
                 System.out.println("PREDICTIONS: " + prediction.toString());
 
                 String result  = Files.list(Paths.get(NeuralNetworkConfig.TRAINING_DATA_DIRECTORY)).sorted().skip(neuralNetwork.predict(inputImage)[0]).findFirst().get().getFileName().toString();
-                if (result.contains("_small")) {
-                    result = result.replace("_small", "");
-                }
                 resultLabel.setText(result);
 
             } catch (IOException e) {
