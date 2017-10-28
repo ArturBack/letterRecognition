@@ -13,7 +13,7 @@ public abstract class NeuralNetworkConfig {
     public static final double L2_REGULARIZATION = 1e-4;
     public static final double L1_REGULARIZATION = 1e-6;
 
-    public static final int EPOCS_NUMBER = 1;
+    public static final int EPOCS_NUMBER = 10;
 
     public static final int NEURONS = 300;
 
