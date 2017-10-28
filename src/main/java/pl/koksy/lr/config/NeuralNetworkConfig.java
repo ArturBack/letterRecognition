@@ -25,6 +25,5 @@ public abstract class NeuralNetworkConfig {
 
     public static String NETWORK_PATH = "network.zip";
 
-
-    private NeuralNetworkConfig() {};
+    private NeuralNetworkConfig() {}
 }
